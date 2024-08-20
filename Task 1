@@ -1,0 +1,46 @@
+import re
+
+def check_password(password):
+  """Checks the strength of a password based on common criteria.
+
+  Args:
+    password: The password to check.
+
+  Returns:
+    A string indicating the password strength.
+  """
+
+  # Define regular expressions for different character types
+  has_upper = re.compile(r'[A-Z]')
+  has_lower = re.compile(r'[a-z]')
+  has_digit = re.compile(r'\d')
+  has_special = re.compile(r'[^\w\s]')
+
+  strength = 0
+
+  if len(password) >= 8:
+    strength += 1
+  if has_upper.search(password):
+    strength += 1
+  if has_lower.search(password):
+    strength += 1
+  if has_digit.search(password):
+    strength += 1
+  if has_special.search(password):
+    strength += 1
+
+  if strength == 0:
+    return "Very Weak"
+  elif strength == 1:
+    return "Weak"
+  elif strength == 2:
+    return "Medium"
+  elif strength == 3:
+    return "Strong"
+  else:
+    return "Very Strong"
+
+if __name__ == "__main__":
+  password = input("Enter your password: ")
+  strength = check_password(password)
+  print("Password strength:", strength)
